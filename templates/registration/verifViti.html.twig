@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Viticulteurs non vérifiés{% endblock %}
+
+{% block body %}
+
+    <h1 class="titre_f">Liste des comptes viticulteurs non vérifiés</h1>
+    <div class="button_switch">
+        <a href="{{ path('app_verif_fournisseur') }}"><button class="user_button_submit">Voir les fournisseurs non vérifiés</button></a>
+    </div>
+    <div>
+        {% for viti in vitis %}
+        <div class="user_verif">
+            <a href="{{ path('app_user', {id: viti.id}) }}"><div>
+                    <p class="name_verif">{{ viti.firstname }} {{ viti.lastname }}</p>
+                </div>
+            </a>
+            <div class="buttons_verif">
+                <a href="{{ path('app_verif_user', {id: viti.id}) }}"><button class="user_button_submit">Vérifier l'utilisateur</button></a>
+                <a href="{{ path('app_delete_user', {id: viti.id}) }}"><button class="user_button_cancel">Supprimer l'utilisateur</button></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de la vigne{% endblock %}
+
+{% block body %}
+    <h1 class="titre_f">Modification de la vigne</h1>
+    {{ form_start(form, {'attr': {'class': 'register_form'}}) }}
+    {{ form_row(form.longitude, {'label': 'Longitude'}) }}
+    {{ form_row(form.latitude, {'label': 'Latitude'}) }}
+    {{ form_row(form.superficie, {'label': 'Superficie'}) }}
+    {{ form_row(form.save, {'label': 'Modifier la vigne !', 'attr': {'class': 'user_button_submit'}}) }}
+    {{ form_end(form) }}
+
+{% endblock %}
+

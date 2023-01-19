@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'un service{% endblock %}
+
+{% block body %}
+    <h1 class="titre_f">Création d'un service</h1>
+    {{ form_start(form, {'attr': {'class': 'register_form'}}) }}
+    {{ form_row(form.intitule_service, {'label': 'Titre du service'}) }}
+    {{ form_row(form.description_service, {'label': 'description de votre service', 'attr': {'class': 'post_champs_texte'}}) }}
+    {{ form_row(form.tag, {'label': 'tags de recherche'}) }}
+    {{ form_row(form.save, {'attr': {'class': 'user_button_submit'}}) }}
+    {{ form_end(form) }}
+
+{% endblock %}

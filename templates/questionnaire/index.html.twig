@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}Questionnaires{% endblock %}
+
+{% block body %}
+    <h1 class="TitreQuesionnaire">Questionnaires</h1>
+    <ul class="Questionnaire">
+        {% for questionnaire in questionnaires %}
+            <a class="BoxQuestionnaire" href="{{ path('app_questionnaire_show', {'id': questionnaire.id}) }}"><div>
+                <h2>{{ questionnaire.IntituleQuestionnaire }}</h2>
+            </div></a>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{% block title %}Documentaire{% endblock %}
+{% block body %}
+<h1 class="rubrique_titre">
+    Espace Documentaire
+</h1>
+{% if is_granted('ROLE_ADMIN') %}
+    <button class ="rubrique_button_add">
+        <a href="{{ path('app_rubrique_upload') }}">
+            Ajouter
+        </a>
+    </button>
+{% endif %}
+<div class="documentaire">
+    <h2 class="rubrique_liste">
+        Liste des Rubriques
+    </h2>
+    {% set compt=0 %}
+    {% for rubrique in rubriques %}
+    {% set cond = true %}
+    <div class="rubrique">
+        <div>
+            <h2>
+                {{ rubrique.titre }}
+            </h2>
+            <h5>
+                Description :
+            </h5>
+            <div>
+                {{ rubrique.description }}
+            </div>
+            <h5>
+                Auteur :
+            </h5>
+            <div>
+                {{ rubrique.auteur }}
+            </div>
+            {% if rubrique.videoLink is not null %}
+            <h5>
+                Vidéo :
+            </h5>
+            <div>
+                {{ rubrique.videoLink|raw }}
+            </div>
+            {% endif %}
+        </div>
+        {%set compt2 = 0%}
+        {% for extension in extensions %}
+            {% if compt == compt2  and (extension == "png" or extension == "jpg" or extension == "jpeg")%}
+                <img class="rubrique_images" src="{{ asset('/web/files/' ~ rubrique.fileName) }}" alt="image">
+                {% set cond = false %}
+            {% endif %}
+            {%set compt2 = compt2 + 1%}
+        {% endfor %}
+        {% set compt = compt +1 %}
+            <div class="rubrique_button">
+                {% if rubrique.filename is not null %}
+                {% if cond %}
+                <div>
+                    <button class="rubrique_button_download">
+                        <a href="{{ path('app_rubrique_download', {'id': rubrique.id}) }}">
+                            Télécharger
+                        </a>
+                    </button>
+                </div>
+                {% endif %}
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <div>
+                <button class="rubrique_button_delete">
+                    <a href="{{ path('app_rubrique_delete', {'id': rubrique.id}) }}">
+                        Supprimer
+                    </a>
+                </button>
+            </div>
+        {% endif %}
+            </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

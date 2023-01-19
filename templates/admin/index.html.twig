@@ -1,0 +1,35 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block content %}
+    <div class="jumbotron">
+    <h1 class="display-3">Administration</h1>
+    <p class="lead">Bienvenue dans l'interface d'adminisration de votre site internet. Voici quelques instructions à respecter pour
+    que l'administration de vos données se passent au mieux :</p>
+        <hr>
+    <h2 class="display-6">/!\ Questionnaire /!\</h2>
+        <br>
+    <p class="lead">Les questionnaires de ce site impliquent une gestion particulière et un processus de création simple mais
+        rigoureux afin de proposer un questionnaire fonctionnel. Voici les étapes à suivre pour créer un questionnaire
+        de façon
+    correct (suivre l'ordre du menu 'Questionnaire' déroulé) :</p>
+    <p class="lead">Etape 0 : Savoir si le questionnaire est destiné à tous les utilisateurs ou s'il est destiné uniquement aux viticulteurs : publique ou non</p>
+        <br>
+    <ul class="lead">
+        <li class="lead">Si Publique : Sauter l'étape 4 et ignorer tout ce qui est relatif aux thématiques</li>
+        <li class="lead">Si non Publique : suivre l'ordre normal</li>
+    </ul>
+        <br>
+    <ol class="lead">
+        <li class="lead">Créer l'ensemble des commentaires associé au questionnaire, mais aussi aux thématiques et aux réponses !
+            Le tableau 'notes' indique les notes qui déclancheronts l'affichage du commentaire. Un commentaire de
+            réponse n'a pas besoin de note. </li>
+        <li class="lead">Créer l'ensemble des réponses associé à votre questionnaire. La liaisons aux questions auxquelles elles
+            appartiennent se fait après. La création des réponses implique leur intitulé, le score qu'elles rapportent et
+            le commentaire qui leur est associé s'il est souhaité d'en ajouter un.</li>
+        <li class="lead">Créer l'ensemble des questions et sélectionner pour chaque question les réponses correspondantes crées précédemment.</li>
+        <li class="lead">Créer les thématiques relatives au questionnaire. Cela implique également de lier les questions
+            à leurs thématiques ainsi que de lier les commentaires de thématiques.</li>
+        <li class="lead">Créer le questionnaire ! Indiquer son accessibilité, les thématiques qui le composent ainsi que ses questions.
+        Les commentaires sont ceux qui s'afficheront en fin de questionnaire en fonction de la note obtenue.</li>
+    </ol>
+    </div>
+{% endblock %}

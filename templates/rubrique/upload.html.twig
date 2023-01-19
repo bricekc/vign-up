@@ -1,0 +1,18 @@
+{# templates/app/test-upload.html.twig #}
+{% extends 'base.html.twig'%}
+{% block title %}Téléverser un fichier{% endblock %}
+{% block body %}
+    <h1>Télévérser un fichier</h1>
+    <hr>
+    <br>
+            {{ form_start(form, {'attr' : {'class' : 'register_form'}}) }}
+                {{ form_row(form.titre, {'attr' : {'class' : 'rubrique_upload_titre'}}) }}
+                {{ form_row(form.auteur, {'attr': {'class': 'rubrique_upload_titre'}}) }}
+                {{ form_row(form.description, {'attr' : {'class' : 'post_champs_texte'}}) }}
+                {{ form_row(form.video , {'attr' : {'class' : 'post_champs_texte'}, 'label' : "Ajouter une vidéo avec l'iframe d'intégration de Youtube"}) }}
+                <div>Si vous mettez une image elle sera affiché dans l'espace rubrique</div>
+                {{ form_row(form.upload_file, {'attr' : {'class' : 'rubrique_upload_fichier'}}) }}
+                {{ form_errors(form.upload_file) }}
+                {{ form_row(form.send, {'label': "téléverser ce fichier", 'attr' : {'class' : 'rubrique_upload_button_add'}}) }}
+            {{ form_end(form) }}
+{% endblock %}

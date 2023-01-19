@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste de post{% endblock %}
+{% block body %}
+    <div class="post_button">
+        <button class = "post_button_repondre"><a href="{{ path('app_sujet') }}">Retour à la liste des sujets</a></button>
+    </div>
+    <h1 class="titreSujet">Sujet : {{  sujet.intituleSujet}}</h1>
+    <hr>
+    {% for post in posts|sort((a, b) => a.date <=> b.date)%}
+        <div class="post">
+            <div class="post_on_top">
+                <a href="{{ path('app_user', {id : post.utilisateur.id}) }}">
+                    <div class="forum_name_avatar">
+                        <img  class="image_forum" src="{{ asset('/img/photo_profil/' ~ post.utilisateur.photoProfil) }}" height="80" width="80" alt="photo de profil">
+                        <p class="forum_name">{{ post.utilisateur.lastname }} {{ post.utilisateur.firstname }}</p>
+                    </div>
+                </a>
+                <div class="right_on_forum">
+                    <div class="update_delete">
+                        {% if is_granted('ROLE_ADMIN') and app.user is defined and app.user.id == post.utilisateur.id %}
+                                <a class = "material-icons" href="{{ url('app_post_delete', {id: post.ID}) }}">delete</a>
+                        {% endif %}
+                        {% if app.user.id is defined and app.user.id == post.utilisateur.id %}
+                                <a class = "material-icons" href="{{ url('app_post_update', {id: post.ID}) }}">edit</a>
+                        {% endif %}
+                    </div>
+                    <p class="date_forum">{{ post.date|date('d/m/Y H:i:s') }}</p>
+                </div>
+            </div>
+            <div class="text_forum">
+                <hr>
+                <div class="raw_text">
+                    {{ post.texte|raw }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {{ knp_pagination_render(posts) }}
+    {%  if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if (app.user.verif is defined and app.user.verif == 1) or is_granted('ROLE_ADMIN') %}
+            {{ include('/sujet/createPost.html.twig') }}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+

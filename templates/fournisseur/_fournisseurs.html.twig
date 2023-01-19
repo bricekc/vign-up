@@ -1,0 +1,28 @@
+<div class="fournisseur">
+    <div class="fournisseur_image_and_name">
+        <div class="image"><img class="image_fournisseur" src="{{ asset('/img/photo_profil/' ~ fournisseur.photoProfil) }}" height="150" width="150" alt="photo de profil"></div>
+        <div class="name_fourn"><p class="user_name">{{ fournisseur.firstname }} {{ fournisseur.lastname }}</p></div>
+    </div>
+    <div class="materiel_service">
+        {% if liste_tags_fournisseur[fournisseur.id]['materiel'] %}
+        <p class="propose">Materiels Proposés : </p>
+        <div class="materiel_tags">
+            {% for materiel_tags in liste_tags_fournisseur[fournisseur.id]['materiel'] %}
+                <span class="materiel_item"> - {{ materiel_tags }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if liste_tags_fournisseur[fournisseur.id]['service'] %}
+        <p class="propose">Services Proposés : </p>
+        <div class="service_tags">
+            {% for service_tags in liste_tags_fournisseur[fournisseur.id]['service'] %}
+                <span class="materiel_item"> - {{ service_tags }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if path(app.request.attributes.get('_route'),
+            app.request.attributes.get('_route_params')) == path("app_fournisseur_show", {id: fournisseur.id}) %}
+            <a href="{{ path('app_user', {id: fournisseur.id}) }}"><button class="user_button_submit">Acceder au profil</button></a>
+        {% endif %}
+    </div>
+</div>

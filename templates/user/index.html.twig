@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ user.firstname }} {{ user.lastname }}{% endblock %}
+
+{% block body %}
+    <h1 class="class_user">Cet utilisateur est un {{ class }}</h1>
+    <div class="user">
+        <div class="user_image_and_name">
+            <img class="user_image" src="{{ asset('/img/photo_profil/' ~ user.photoProfil) }}" height="150" width="150" alt="photo de profil">
+            <p class="user_name">{{ user.firstname }} {{ user.lastname }}</p>
+        </div>
+        <div class="info_user">
+            <p class="info">Infos</p>
+            <div class="info_user_content">
+                <p class="user_email"> Mail : {{ user.email }}</p>
+                <p class="user_adresse">Adresse : {{ user.adresse }}, {{ user.cp }} {{ user.ville }}</p>
+                <p>Inscrit depuis le : {{ user.dateCreation|date('d/m/Y') }}</p>
+                {% if  class == 'VITICULTEUR' %}
+                    <p class="user_siret">Numero de Siret : {{ user.numSiret }}</p>
+                {% endif %}
+            </div>
+            <p class="info">Contribution au forum</p>
+            <div class="info_user_content">
+                <p class="user_message_envoye"> Nombre de message envoyé dans le forum : {{ nbposts }} messages</p>
+                <p class="user_sujet">Nombre de sujet : {{ nbsujets }} sujets</p>
+            </div>
+            <div class="user_buttons">
+                <div class="user_buttons_logout_update">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') and user.id == app.user.id%}
+                        <a href="{{ path('app_update_user', {id : user.id}) }}"><button class="user_button_submit">Modifier le profil</button></a>
+                    {% endif %}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') and user.id == app.user.id%}
+                        <a href="{{ path('app_logout') }}"><button class="user_button_cancel">Se Déconnecter</button></a>
+                    {% endif %}
+                </div>
+                <div class="button_show">
+                    {% if class == 'VITICULTEUR'%}
+                    <a href="{{ path('app_vigne', {id : user.id}) }}"><button class="user_button_submit">Voir les vignes de {{ user.firstname }}</button></a>
+                    {% endif %}
+                    {% if class == 'FOURNISSEUR' %}
+                        <a href="{{ path('app_fournisseur_show', {id: user.id}) }}"><button class="user_button_submit">Voir le materiel et les services proposé</button></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

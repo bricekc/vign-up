@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block title %}Cartographie{% endblock %}
+
+{% block body %}
+    <h1 class="TitreCarte">Espace Cartographie</h1>
+    <div id="contenue">
+        <div id="map"></div>
+        <div id="info_utilisateur" class="hide">
+            <p>Informations sur le vigneron :</p>
+            <img id="photo_profil"  height="150" width="150" alt="aucune information" src="">
+            <p id="nom"></p>
+            <p id="email"></p>
+            <a id="button_carte" href="">Profil du vigneron</a>
+        </div>
+    </div>
+    <script>
+        var map = L.map('map').setView([49.258329, 4.031696], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var customIcon = L.icon({
+            iconUrl: '/img/raisin.png',
+            iconSize: [38, 54], // size of the icon
+            shadowSize: [50, 64], // size of the shadow
+            iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+        {% for idVigneron, coordonnees in coordvignes %}
+        {% set vigneron = vignerons[idVigneron] %}
+        {% for coordonnee in coordonnees %}
+        var marker = L.marker([{{ coordonnee.lat }}, {{ coordonnee.lng }}], {icon: customIcon}).addTo(map).bindPopup(`
+                <a href="{{ path('app_user', {id : vigneron.id}) }}">{{vigneron.lastname}}.{{ vigneron.firstname }}</a>
+                <br>
+                {{ vigneron.email }}
+                `);
+        marker.on('click', function(e) {
+            document.getElementById("nom").innerHTML = "{{ vigneron.lastname }} {{ vigneron.firstname }}";
+            document.getElementById("email").innerHTML = "{{ vigneron.email }}";
+            document.getElementById("photo_profil").src = "{{ asset('/img/photo_profil/' ~ vigneron.photoProfil) }}";
+            document.getElementById("button_carte").href="{{ path('app_user',{id : vigneron.id}) }}";
+            document.getElementById("info_utilisateur").classList.remove("hide");
+            map.setView([{{coordonnee.lat}}, {{coordonnee.lng}}], 14);
+        });
+        {% endfor %}
+        {% endfor %}
+    </script>
+{% endblock %}

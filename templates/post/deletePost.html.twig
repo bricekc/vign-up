@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}Suppression de {{ post.sujet.intituleSujet }}{% endblock %}
+{% block body %}
+    <h1></h1>
+    <div class="register_form">
+    <h1 class="titre_f">Suppression d'un post</h1>
+    <p class="titre_f">Date de création : {{ post.date|date('d/m/Y H:i:s') }}</p>
+    <p class="titre_f">Contenu : {{ post.texte }}</p>
+        {{ form_start(form, {'attr': {'class': 'register_double_button'}}) }}
+        <span class="register_container_button">
+            {{ form_row(form.delete, {'label': 'Supprimer', 'attr': {'class': 'user_button_cancel'}}) }}
+            {{ form_row(form.cancel, {'label': 'Annuler', 'attr': {'class': 'user_button_cancel'}}) }}
+        </span>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ fournisseur.lastname }} {{ fournisseur.firstname }}{% endblock %}
+
+{% block body %}
+
+    <h1 class="titre_f"> Materiels et Services proposés par  {{ fournisseur.firstname }} {{ fournisseur.lastname }}</h1>
+
+    {{ include('/fournisseur/_show.html.twig') }}
+
+{% endblock %}

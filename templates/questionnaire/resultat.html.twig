@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+{% block title %}Résultat du {{ questionnaire.IntituleQuestionnaire }}{% endblock %}
+{% block body %}
+{% if not questionnaire.isPublic() %}
+    {% block head %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    {% endblock %}
+    <h1 class="titreQuestionnaireTous">Résultat du {{ questionnaire.IntituleQuestionnaire }}</h1>
+    <div class="questionnaire">
+        <div class=QuestionnaireFormulaire">
+    {# Affiche la note du questionnaire #}
+    <h2 class="Score">Score Globale : {{ note }}</h2>
+            <hr>
+    {# Pour chaque thématique du questionnaire #}
+            {% for thematique in questionnaire.thematiques %}
+                <h2 class="ThemeName">Thématique : {{ thematique.NomThematique }}</h2>
+                <h2 class="Score">Score : {{ noteParThematique[thematique.NomThematique] }}</h2>
+                {% for question in thematique.questions %}
+                    {% for reponse in reponses %}
+                        {% if reponse.question == question %}
+                            <div class="Recap">
+                                <p>
+                                    <strong>{{ reponse.question }} :</strong>
+                                </p>
+                                <p>{{ reponse.reponse }}</p>
+                            </div>
+                            {% if reponse.commentaire %}
+                            <div class="Commentaire">
+                                <p>Commentaire : {{ reponse.commentaire.commentaire }}</p>
+                            </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                {% for commentaire in thematique.commentaires %}
+                    {% if thematique.id == commentaire.thematique.id and noteParThematique[thematique.NomThematique] in commentaire.notes %}
+            <div class="Commentaire">
+                <p><strong>Commentaire global :</strong> {{ commentaire.commentaire }}</p>
+            </div>
+                    {% endif %}
+                {% endfor %}
+                <hr>
+            {% endfor %}
+        </div>
+    <canvas id="myChart"></canvas>
+    {% block javascript %}
+    <script>
+        let labels = [
+        {% for thematique, note in noteParThematique %}
+            "{{ thematique }}",
+        {% endfor %}
+    ];
+    let data = [
+        {% for thematique, noteT in noteParThematique %}
+            {{ noteT }},
+        {% endfor %}
+    ];
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let max = {{ note }};
+    let chart = new Chart(ctx, {
+    // Le type de graphique à créer
+    type: 'radar',
+
+    // Les données du graphique
+    data: {
+        labels: labels,
+        datasets: [{
+            label: "Note par thématique",
+            data: data,
+            // Couleur de remplissage du graphique
+            backgroundColor: 'rgba(71, 57, 68, 0.2)',
+            // Couleur de la bordure du graphique
+            borderColor: 'rgba(71, 57, 68, 1)',
+            // Epaisseur de la bordure
+            borderWidth: 1
+        }]
+    },
+
+    // Les options du graphique
+    options: {
+        elements: {
+            line: {
+                borderWidth: 3
+            }
+        },
+        scale: {
+            ticks: {
+                beginAtZero: true,
+                max: max,
+                stepSize: 10
+            }
+        },
+        devicePixelRatio: 2,
+
+    }
+    });
+    </script>
+    </div>
+    {% endblock %}
+
+{% else %}
+    {% if app.session.get('note') and app.session.get('reponses') %}
+        <h1 class="titreQuestionnaireTous">Résultat du {{ questionnaire.IntituleQuestionnaire }}</h1>
+        <div class="QuestionnaireFormulaire">
+        <h2 class="Score">Score : {{ app.session.get('note') }}</h2>
+        {# Affiche les réponses de l'utilisateur pour chaque question #}
+        {% for reponse in app.session.get('reponses') %}
+            <div class="Recap">
+                <p>
+                    <strong>{{ reponse.getQuestion() }} :</strong>
+                </p>
+                <p>{{ reponse.getReponse() }}</p>
+            </div>
+        {% endfor %}
+            <div class="Commentaire">
+        <h2>Commentaire :</h2>
+        {% for commentaire in questionnaire.commentaires %}
+        {% for note in commentaire.notes %}
+        {% if note==app.session.get('note') %}
+
+        <p>{{ commentaire.commentaire }}</p>
+
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p>Vous n'avez pas encore répondu au questionnaire.</p>
+    {% endif %}
+{% endif %}
+{% endblock %}

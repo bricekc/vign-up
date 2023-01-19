@@ -1,0 +1,52 @@
+<div class="fournisseur_desc">
+{{ include('/fournisseur/_fournisseurs.html.twig') }}
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') and fournisseur.id == app.user.id and fournisseur.verif == 1%}
+        <div class="lien_ajout_fournisseur">
+            <a href="{{ path("app_fournisseur_profil_createMateriel", {id: app.user.id}) }}"><button class="user_button_submit">Ajouter un type de materiel</button></a>
+            <a href="{{ path("app_fournisseur_profil_createService", {id: app.user.id}) }}"><button class="user_button_submit">Ajouter un type de service</button></a>
+        </div>
+    {% endif %}
+
+    <div class="materiel_service_show">
+    {% if fournisseur.getTypeMaterielPropose()|length > 0 %}
+        <div class="materiels">
+            <h2 class="h2_mat_ser">Description du materiel proposé</h2>
+            <div class="liste_materiel">
+                {% for materiel in fournisseur.getTypeMaterielPropose() %}
+                    <div class="desc_mat_ser">
+                        <p class="desc__intitule">{{ materiel.getIntituleMateriel() }}</p>
+                        <p class="desc_materiel_description">{{ materiel.getDescriptionMateriel() }}</p>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') and fournisseur.id == app.user.id %}
+                            <div class="lien_edition">
+                                <a href="{{ path("app_type_materiel_update", {id: materiel.getId()}) }}"><button class="user_button_submit">Modifier Le Materiel</button></a>
+                                <a href="{{ path("app_type_materiel_delete", {id: materiel.getId()}) }}"><button class="user_button_cancel">Supprimer Le Materiel</button></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if fournisseur.getTypeServicePropose()|length > 0 %}
+        <div class="services">
+            <h2 class="h2_mat_ser">Description des services proposés</h2>
+            <div class="liste_service">
+                {% for service in fournisseur.getTypeServicePropose() %}
+                    <div class="desc_mat_ser">
+                        <p class="desc__intitule">{{ service.getIntituleService() }}</p>
+                        <p class="desc_service_description">{{ service.getDescriptionService() }}</p>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') and fournisseur.id == app.user.id %}
+                            <div class="lien_edition">
+                                <a href="{{ path("app_type_service_update", {id: service.getId()}) }}"><button class="user_button_submit">Modifier Le Service</button></a>
+                                <a href="{{ path("app_type_service_delete", {id: service.getId()}) }}"><button class="user_button_cancel">Supprimer Le Service</button></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    </div>
+</div>

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}liste fournisseurs{% endblock %}
+
+{% block body %}
+    <h1 class="titre_f">Liste des fournisseurs et des prestataires</h1>
+    <div class="all_fourn">
+    {{ include('/fournisseur/_formulaire_recherche.html.twig') }}
+
+    <div class="fournisseurs">
+    {% for fournisseur in liste_fournisseur %}
+        <a href="{{ path("app_fournisseur_show", {id: fournisseur.Id}) }}">
+            {{ include('/fournisseur/_fournisseurs.html.twig') }}
+        </a>
+    {% endfor %}
+    </div>
+    </div>
+{% endblock %}

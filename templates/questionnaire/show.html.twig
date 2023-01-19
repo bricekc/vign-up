@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Questionnaire{% endblock %}
+
+{% block body %}
+    <h1 class="titreQuestionnaireTous">{{ questionnaire.intituleQuestionnaire }}</h1>
+    <div class="QuestionnaireFormulaire">
+    {{ form_start(form) }}
+    {% if questionnaire.thematiques is empty %}
+        {% for field in form.children %}
+            <div class="QuestionTous">
+                {{ form_row(field) }}
+            </div>
+        {% endfor %}
+    {% else %}
+        {% for thematique in questionnaire.thematiques %}
+            <h2 class="ThemeName">{{ thematique.nomThematique }}</h2>
+            {% for question in thematique.questions %}
+    <div class="QuestionPriv">
+                {{ form_row(form['question_' ~ question.id]) }}
+            </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    <button type="submit" class="btn btn-primary btn-submit-questionnaire">Envoyer</button>
+    {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+ <h1>Nouveau Post</h1>
+ <hr>
+    {{ form_start(form)}}
+    {{ form_row(form.texte, {'label': 'Texte','label_attr': {'class': 'TitreChampText'}, 'attr': {'class': 'tinymce'}}) }}
+    <button type="submit" class="btn_post">Poster</button>
+    {{ form_end(form) }}
+ {{ tinymce_init({
+    statusbar: false,
+    menu: {
+       edit: {title: 'Editer', items: 'undo redo | cut copy paste pastetext | selectall'},
+       insert: {title: 'Inserer', items: 'link media | template hr'},
+       format: {title: 'Format', items: 'bold italic underline strikethrough superscript subscript | formats | removeformat'}
+    },
+    theme: {simple: {language: 'fr_FR', height: 200, width: 1000}}
+    }) }}
+

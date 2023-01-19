@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title %}Suppression de {{ sujet.intituleSujet }}{% endblock %}
+{% block body %}
+        <h1>Suppression de {{ sujet.intituleSujet }}</h1>
+        <div class="d-flex">
+                {{ form_start(form)}}
+                {{ form_row(form.delete, {'label': 'Supprimer'}) }}
+                {{ form_row(form.cancel, {'label': 'Annuler'}) }}
+                {{ form_end(form) }}
+        </div>
+{% endblock %}

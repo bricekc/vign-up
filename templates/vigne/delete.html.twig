@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suppression de la vigne{% endblock %}
+
+{% block body %}
+
+    <h1></h1>
+    <div class="register_form">
+        <h1 class="titre_f">Êtes vous sur de vouloir supprimer cette vigne ?</h1>
+        {{ form_start(form, {'attr': {'class': 'register_double_button'}}) }}
+        <span class="register_container_button">
+            {{ form_row(form.delete, {'label': 'Supprimer', 'attr': {'class': 'user_button_cancel'}}) }}
+            {{ form_row(form.cancel, {'label': 'Annuler', 'attr': {'class': 'user_button_cancel'}}) }}
+        </span>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+<div class="search_fourni_name">
+    <form class="d-flex" role="search" action="{{ path('app_fournisseur') }}">
+        <input name="searchNomPrenom" class="select_fourn" type="search" placeholder="{{ search|default('Rechercher Fournisseur') }}" aria-label="search">
+        <label>
+            <select class="select_fourn" name="searchTags">
+                {% if param_tag != 'Rechercher un Tag' %}
+                    <option value={{ param_tag }}>{{ param_tag }}</option>
+                {% endif %}
+                <option value="">Rechercher un Tag</option>
+                {% for option in all_tag %}
+                    {% if option != param_tag %}
+                        <option value="{{ option }}">{{ option }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </label>
+        <button class="user_button_submit" type="submit">Lancer la recherche</button>
+    </form>
+</div>

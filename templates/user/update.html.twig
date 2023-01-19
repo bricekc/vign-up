@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ user.firstname }} {{ user.lastname }}{% endblock %}
+
+{% block body %}
+    <h1 class="class_user">Modification du profil de {{ user.firstname }} {{ user.lastname }}</h1>
+    {{ form_start(form) }}
+    <div class="user">
+        <div class="user_image_and_name">
+            <img class="user_image" src="{{ asset('img/photo_profil/' ~ user.photoProfil) }}" height="150" width="150" alt="photo de profil">
+            {{ form_row(form.photo_upload, {'label': 'Télécharger une image'}) }}
+            <div class="user_name">
+            <p>{{ form_row(form.firstname, {'label': 'Prénom : ', 'placeholder': "#{user.firstname}"}) }} {{ form_row(form.lastname, {'label': 'Nom : ', 'placeholder': "#{user.lastname}"}) }}</p>
+            </div>
+        </div>
+        <div class="info_user">
+            <p class="info">Infos</p>
+            <div class="info_user_content">
+                <p class="user_email">{{ form_row(form.email, {'label': 'Mail : ', 'placeholder':"#{user.email}" }) }}</p>
+                <p class="user_adresse">{{ form_row(form.adresse, {'label': 'Adresse : ', 'placeholder': "#{user.adresse}"}) }} {{ form_row(form.cp, {'label': 'Code Postal : ','placeholder': "#{user.cp}"}) }} {{ form_row(form.ville, {'label': 'Ville : ','placeholder': "#{user.ville}"}) }}</p>
+                {% if  className == 'VITICULTEUR' %}
+                <p class="user_siret">{{ form_row(form.num_siret, {'label': 'Numero de siret : ', 'placeholder':"#{user.numSiret}"}) }}</p>
+                {% endif %}
+            </div>
+            <div class="user_buttons">
+                <input type="submit" class="user_button_submit" value="Modifier le profil"/>
+                <a href="{{ path('app_user', {'id' : user.id}) }}"><button class="user_button_cancel">Annuler les modifications</button></a>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

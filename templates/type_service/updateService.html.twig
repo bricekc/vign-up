@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification Service{% endblock %}
+
+{% block body %}
+    <h1 class="titre_f">Modification du service {{ typeservice.intituleService }}</h1>
+    {{ form_start(form, {'attr': {'class': 'register_form'}}) }}
+    {{ form_row(form.intitule_service, {'label': 'Titre du service'}) }}
+    {{ form_row(form.description_service, {'label': 'Description de votre service',  'attr': {'class': 'post_champs_texte'}}) }}
+    {{ form_row(form.tag, {'label': 'Tags de recherche'}) }}
+    {{ form_row(form.save, {'attr': {'class': 'user_button_submit'}}) }}
+    {{ form_end(form) }}
+
+{% endblock %}

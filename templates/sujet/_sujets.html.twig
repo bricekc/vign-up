@@ -1,0 +1,21 @@
+{% for sujet in sujets %}
+    <div class="sujet">
+    {% if is_granted('ROLE_ADMIN') %}
+        <span class="material-icons">
+            <a class = "text-warning" href="{{ url('app_sujet_id_delete', {id: sujet.ID}) }}">
+                delete
+            </a>
+        </span>
+    {% endif %}
+<a href="{{ path('app_sujet_id', {id: sujet.Id}) }}">
+    {{ sujet.intituleSujet }}
+    {% if sujet.posts[0] is defined %}
+        <div class="sujet_info">
+            {{ sujet.datelastupdate|date('d/m/Y H:i:s') }}
+        </a>
+        </div>
+    {% else %}
+        </a>
+    {% endif %}
+    </div>
+{% endfor %}

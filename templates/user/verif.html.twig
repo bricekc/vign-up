@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vérification de {{ user.firstname }} {{ user.lastname }}{% endblock %}
+
+{% block body %}
+
+    <h1></h1>
+    <div class="register_form">
+        <h1 class="titre_f">Êtes vous sur de vérifier l'utilisateur {{ user.firstname}} {{ user.lastname}} ?</h1>
+        {{ form_start(form, {'attr': {'class': 'register_double_button'}}) }}
+        <span class="register_container_button">
+            {{ form_row(form.verif, {'label': 'Vérifier', 'attr': {'class': 'user_button_submit'}}) }}
+            {{ form_row(form.cancel, {'label': 'Annuler', 'attr': {'class': 'user_button_cancel'}}) }}
+        </span>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+[
+  {
+    "nom": "Outils"
+  },
+  {
+    "nom": "Engins"
+  },
+  {
+    "nom": "Pièces Détachées"
+  },
+  {
+    "nom": "Matière Premières"
+  },
+  {
+    "nom": "Carburants"
+  },
+  {
+    "nom": "Réparation"
+  },
+  {
+    "nom": "Entretien"
+  },
+  {
+    "nom": "Récolte"
+  },
+  {
+    "nom": "Conseil"
+  },
+  {
+    "nom": "Nettoyage"
+  },
+  {
+    "nom": "Autre"
+  }
+]

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modification du post dans le sujet {{ post.sujet.intituleSujet }}{% endblock %}
+{% block body %}
+    <div class="register_form">
+        <h1 class="titre_f">Modification du post</h1>
+        {{ form_start(form)}}
+        {{ form_row(form.texte, {'label': false, 'attr': {'class': 'tinymce'}}) }}
+        <span class="register_container_button">
+        <button type="submit" class="user_button_submit">Modifier</button>
+        </span>
+        {{ form_end(form) }}
+    </div>
+    {{ tinymce_init({
+        theme: {'simple':{'language': 'fr_Fr' , 'height': 500 }},
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    })
+    }}
+{% endblock %}

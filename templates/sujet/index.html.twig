@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Sujet{% endblock %}
+{% block body %}
+    <div class="sujets_on_top">
+        <h1 class="titreSujet">Forum</h1>
+        <div class="search_sujet">
+            <form class="d-flex" role="search" action="{{ path('app_sujet') }}">
+                <input class="select_fourn" type="search" placeholder="Search" value="{{ search |default('') }}" aria-label="Search" name="search">
+                <button class="user_button_submit" type="submit">Rechercher</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <br>
+    <div class="liste_sujet">
+        <div class="sujet">
+            <h2>Sujet</h2>
+        </div>
+        {{ include('/sujet/_sujets.html.twig') }}
+    </div>
+    {{ knp_pagination_render(sujets) }}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if (app.user.verif is defined and app.user.verif == 1) or is_granted('ROLE_ADMIN') %}
+            {{ include('/sujet/createSujet.html.twig') }}
+        {% endif %}
+    {% endif %}
+{% endblock %}

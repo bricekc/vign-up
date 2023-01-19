@@ -1,0 +1,6 @@
+ <h1>Création d'un sujet</h1>
+ <hr>
+    {{ form_start(form, {'attr': {'class': 'form_sujet'}})}}
+    {{ form_row(form.intitule_sujet, {'label': false, 'attr': {'class': 'post_champs_texte'}}) }}
+    <button type="submit" name = "submit" class="btn_post">Créer</button>
+    {{ form_end(form) }}

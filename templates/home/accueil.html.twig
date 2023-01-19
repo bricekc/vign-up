@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}VignUP{% endblock %}
+
+{% block body %}
+    <div class="home_container_page">
+        <div class="home_container_donnée">
+            <h1 class="home_titre">Liste des utilisateurs créés il y a 7 jours</h1>
+            <div class="home_container_user" >
+                {% for user in newUsers %}
+                    <a class="home_card" href="{{ path('app_user',{id : user.id}) }}">
+                    <img src="{{ asset('/img/photo_profil/' ~ user.photoProfil) }}" alt="photo profil" height="150" width="150">
+                    <div class="home_informations">
+                     <span class="home_prenom">{{ user.firstname }}  </span>
+                     <span class="home_nom">{{ user.lastname }} </span>
+                    </div>
+                    </a>
+                {% endfor %}
+            </div>
+            <h1 class="home_titre">Liste des 5 derniers posts</h1>
+            <div class="home_container_total_post">
+                {% for post in newPost %}
+                <a  href="{{path('app_sujet_id',{id: post.sujet.id})}}">
+                    <div class="home_container_post">
+                        <p class="home_sujet_titre">{{ post.sujet.intitulesujet}}</p>
+                        <a href="{{ path('app_user', {id : post.utilisateur.id}) }}">{{ post.utilisateur.lastname }} {{ post.utilisateur.firstname }}</a>
+                        <a class="home_post" >{{ post.texte|raw }}</a>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="home_SocialMedia">
+            <h2 >Actualités de la Chambre d'agriculture du vignoble champenois: </h2>
+            <div class="home_container_fb-page">
+                <div class="fb-page" data-href="https://www.facebook.com/chambresagriculturevignoblechampenois/" data-tabs="timeline" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/chambresagriculturevignoblechampenois/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/chambresagriculturevignoblechampenois/">Chambres d&#039;agriculture du vignoble champenois</a></blockquote></div>
+                <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v15.0" nonce="uX6hbG1n"></script>
+            </div>
+            <div class="home_liste_actu">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

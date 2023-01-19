@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fournisseurs non vérifiés{% endblock %}
+
+{% block body %}
+
+    <h1 class="titre_f">Liste des comptes fournisseurs non vérifiés</h1>
+    <div class="button_switch">
+        <a href="{{ path('app_verif_viticulteur') }}"><button class="user_button_submit">Voir les viticulteurs non vérifiés</button></a>
+    </div>
+    <div>
+        {% for fourn in fourns %}
+            <div class="user_verif">
+                <a href="{{ path('app_user', {id: fourn.id}) }}"><div>
+                        <p class="name_verif">{{ fourn.firstname }} {{ fourn.lastname }}</p>
+                    </div>
+                </a>
+                <div class="buttons_verif">
+                    <a href="{{ path('app_verif_user', {id: fourn.id}) }}"><button class="user_button_submit">Vérifier l'utilisateur</button></a>
+                    <a href="{{ path('app_delete_user', {id: fourn.id}) }}"><button class="user_button_cancel">Supprimer l'utilisateur</button></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

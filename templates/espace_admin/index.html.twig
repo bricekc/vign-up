@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Admin{% endblock %}
+
+{% block body %}
+<h1 class="titre_f">Bienvenue dans l'espace administrateur {{ app.user.firstname }}</h1>
+    <div class="register_form">
+        <p class="name_verif">Vous pouvez vérifier les différents viticulteurs et fournisseurs non vérifié ici :</p>
+        <div class="buttons_verif">
+            <a href="{{ path('app_verif_viticulteur') }}"><button class="user_button_submit">Vérifier les viticulteurs</button></a>
+            <a href="{{ path('app_verif_fournisseur') }}"><button class="user_button_submit">Vérifier les fournisseurs</button></a>
+        </div>
+    </div>
+    <div class="dashboard"><a href="{{ path('admin') }}"><button class="user_button_dashboard">Accéder au dashboard administrateur</button></a></div>
+{% endblock %}
